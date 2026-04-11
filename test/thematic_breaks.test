@@ -1,0 +1,14 @@
+Thematic break renders as three dashes.
+```
+before
+
+---
+
+after
+.
+before
+
+---
+
+after
+```

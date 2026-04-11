@@ -1,0 +1,34 @@
+Delete is preserved with ~…~ — dropping it would flip the meaning of the sentence.
+```
+The build is {-broken-} working.
+.
+The build is ~broken~ working.
+```
+
+Single-token superscript uses leading ^ (standard ASCII math convention).
+```
+x^2^ is squared.
+.
+x^2 is squared.
+```
+
+Single-token subscript uses leading _ (H_2O etc.).
+```
+H~2~O is water.
+.
+H_2O is water.
+```
+
+Multi-token superscript wraps in parens to keep the scope explicit.
+```
+x^n + 1^ is the thing.
+.
+x^(n + 1) is the thing.
+```
+
+Multi-token subscript wraps in parens.
+```
+f~i, j~ is a matrix element.
+.
+f_(i, j) is a matrix element.
+```

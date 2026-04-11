@@ -1,0 +1,21 @@
+A fenced code block with a language tag keeps the language as gemtext alt text.
+````
+```python
+print("hi")
+```
+.
+```python
+print("hi")
+```
+````
+
+A fenced code block without a language.
+````
+```
+bare code
+```
+.
+```
+bare code
+```
+````

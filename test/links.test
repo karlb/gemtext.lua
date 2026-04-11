@@ -1,0 +1,29 @@
+A single inline link renders as a [1] marker with a => line after the paragraph.
+```
+See [the site](https://example.com) for details.
+.
+See the site[1] for details.
+=> https://example.com 1: the site
+```
+
+Multiple inline links each get their own marker and => line.
+```
+See [alpha](https://a.ex) and [beta](https://b.ex) for more.
+.
+See alpha[1] and beta[2] for more.
+=> https://a.ex 1: alpha
+=> https://b.ex 2: beta
+```
+
+Link numbering restarts in each paragraph.
+```
+A [first](https://1.ex) link.
+
+A [second](https://2.ex) link.
+.
+A first[1] link.
+=> https://1.ex 1: first
+
+A second[1] link.
+=> https://2.ex 1: second
+```

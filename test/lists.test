@@ -1,0 +1,21 @@
+Bullet list with three items.
+```
+- one
+- two
+- three
+.
+* one
+* two
+* three
+```
+
+Ordered lists flatten to bullets (gemtext has no ordered list type).
+```
+1. first
+2. second
+3. third
+.
+* first
+* second
+* third
+```

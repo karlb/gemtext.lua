@@ -1,0 +1,35 @@
+Single paragraph, plain text.
+```
+hello world
+.
+hello world
+```
+
+Soft line breaks collapse to a space.
+```
+line one
+line two
+line three
+.
+line one line two line three
+```
+
+Two paragraphs separated by a blank line.
+```
+first paragraph
+
+second paragraph
+.
+first paragraph
+
+second paragraph
+```
+
+Hard line break (backslash + newline).
+```
+first\
+second
+.
+first
+second
+```

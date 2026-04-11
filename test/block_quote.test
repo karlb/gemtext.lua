@@ -1,0 +1,14 @@
+Plain blockquote.
+```
+> a quoted line
+.
+> a quoted line
+```
+
+Links inside a quote are pulled out beneath it (gemtext clients only recognize => at the very start of a line).
+```
+> a quote with a [link](https://q.ex) inside
+.
+> a quote with a link[1] inside
+=> https://q.ex 1: link
+```

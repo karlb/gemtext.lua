@@ -1,0 +1,45 @@
+Level 1 heading.
+```
+# Top
+.
+# Top
+```
+
+Level 2 heading.
+```
+## Second
+.
+## Second
+```
+
+Level 3 heading.
+```
+### Third
+.
+### Third
+```
+
+Headings deeper than 3 are capped at level 3 (gemtext only has three levels).
+```
+#### Fourth
+.
+### Fourth
+```
+
+Level 5 also caps at 3.
+```
+##### Fifth
+.
+### Fifth
+```
+
+A heading followed by a paragraph.
+```
+# Title
+
+Body text here.
+.
+# Title
+
+Body text here.
+```

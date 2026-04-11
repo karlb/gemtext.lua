@@ -1,0 +1,12 @@
+Footnote references collect to a Footnotes section at the end of the document.
+```
+See the docs[^doc] for more.
+
+[^doc]: The documentation lives at the usual place.
+.
+See the docs[^1] for more.
+
+## Footnotes
+
+1. The documentation lives at the usual place.
+```

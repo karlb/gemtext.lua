@@ -1,0 +1,27 @@
+Decorative markers (emph, strong) are dropped — plain reading is unchanged.
+```
+Hello _world_, welcome.
+.
+Hello world, welcome.
+```
+
+Strong is dropped.
+```
+Please *stop* that.
+.
+Please stop that.
+```
+
+Mark is dropped.
+```
+It was {=highlighted=} text.
+.
+It was highlighted text.
+```
+
+Insert is dropped (the text is still present, so no meaning is lost).
+```
+A list: one, two, {+three+}.
+.
+A list: one, two, three.
+```
