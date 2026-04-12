@@ -4,24 +4,19 @@ A single-file pandoc custom writer that outputs gemtext (the markup
 language of the [Gemini protocol](https://geminiprotocol.net/)).
 
 Because it operates on pandoc's AST it works with every input format
-pandoc reads — djot, markdown, gfm, commonmark, rst, and so on. The
-original motivation was djot, so the test fixtures are djot; substitute
-`-f gfm` / `-f commonmark` freely.
+pandoc reads — markdown, commonmark, gfm, rst, djot, and many more.
 
 ## Requirements
 
 - **pandoc** 2.17.2+ for the custom-writer API.
-- **pandoc** 3.1.2+ if you want the native djot reader (`-f djot`).
 
 ## Usage
 
 ```sh
 # Anywhere gemtext.lua lives on disk:
-pandoc -f djot --to /path/to/gemtext.lua input.dj -o output.gmi
-
-# Any other input format also works:
 pandoc -f gfm README.md --to /path/to/gemtext.lua -o README.gmi
 cat notes.md | pandoc -f commonmark --to /path/to/gemtext.lua
+pandoc -f djot input.dj --to /path/to/gemtext.lua -o output.gmi
 ```
 
 ## Install
@@ -41,28 +36,28 @@ There's no binary to install — this project is the single Lua file.
 gemtext is line-based and has no inline markup, so some source constructs
 lose decoration. The mapping is:
 
-| source                       | gemtext                                                  |
+| source construct             | gemtext                                                  |
 |------------------------------|----------------------------------------------------------|
-| `# H1` … `### H3`            | `# ` / `## ` / `### ` (levels ≥ 4 capped at `###`)       |
+| Headings 1–3                 | `# ` / `## ` / `### ` (levels ≥ 4 capped at `###`)       |
 | Paragraph                    | One text line (no hard wrapping)                         |
-| `_emph_`, `*strong*`         | dropped (decorative)                                     |
-| `{=mark=}`, `{+ins+}`        | dropped (decorative)                                     |
-| `{-del-}`, strikeout         | wrapped `~text~` (meaning would flip if dropped)         |
-| `x^2^` superscript           | leading `^` — `x^2`, `x^(n+1)` when multi-token          |
-| `H~2~O` subscript            | leading `_` — `H_2O`, `f_(i,j)` when multi-token         |
-| `"quoted"`                   | curly quotes `“…”` / `‘…’`                          |
-| `` `code` ``                 | plain text                                               |
-| inline math                  | literal TeX source                                       |
-| `[text](url)`                | `[N]` in prose + `=> url N: text` after the paragraph    |
-| `![alt](url)`                | same, with ` [IMG]` appended                             |
-| `[^fn]` footnote             | `[^N]` marker + `## Footnotes` section at doc end        |
-| `> quote`                    | `> ` prefix; any `=>` link lines moved out below         |
+| Emphasis, strong             | dropped (decorative)                                     |
+| Highlight, insert            | dropped (decorative)                                     |
+| Strikeout, delete            | wrapped `~text~` (meaning would flip if dropped)         |
+| Superscript                  | leading `^` — `x^2`, `x^(n+1)` when multi-token          |
+| Subscript                    | leading `_` — `H_2O`, `f_(i,j)` when multi-token         |
+| Quoted text                  | curly quotes `“…”` / `‘…’`                          |
+| Inline code                  | plain text                                               |
+| Inline math                  | literal TeX source                                       |
+| Link                         | `[N]` in prose + `=> url N: text` after the paragraph    |
+| Image                        | same, with ` [IMG]` appended                             |
+| Footnote                     | `[^N]` marker + `## Footnotes` section at doc end        |
+| Block quote                  | `> ` prefix; any `=>` link lines moved out below         |
 | Fenced code block            | ```` ``` ```` fence with language tag as alt text        |
 | Bullet / ordered / task list | `* item` (gemtext has only one list type — flat bullets) |
 | Thematic break               | `---`                                                    |
 | Table                        | aligned plain text inside a ```` ```table ```` fence     |
 | Div / span                   | walked transparently; attributes dropped                 |
-| `{=format}` raw              | kept if format is `gemtext`/`gmi`, else dropped          |
+| Format-specific raw content  | kept if format is `gemtext`/`gmi`, else dropped          |
 
 **Guiding principle:** drop markers when the plain-text reading still
 carries the author's meaning; preserve them when dropping would flip or
@@ -87,4 +82,3 @@ above each block.
   mirrors.
 - [djot.js](https://github.com/jgm/djot.js) — reference djot
   implementation; the `.test` fixture format comes from it.
-- [djot spec](https://github.com/jgm/djot) — the djot language.
