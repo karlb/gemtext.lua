@@ -1,5 +1,5 @@
 PREFIX ?= $(HOME)/.local
-WRITERDIR ?= $(PREFIX)/share/pandoc/custom-writers
+WRITERDIR ?= $(PREFIX)/share/pandoc/custom
 
 .PHONY: test install uninstall
 
