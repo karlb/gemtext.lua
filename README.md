@@ -10,26 +10,33 @@ pandoc reads — markdown, commonmark, gfm, rst, djot, and many more.
 
 - **pandoc** 2.17.2+ for the custom-writer API.
 
-## Usage
-
-```sh
-# Anywhere gemtext.lua lives on disk:
-pandoc -f gfm README.md --to /path/to/gemtext.lua -o README.gmi
-cat notes.md | pandoc -f commonmark --to /path/to/gemtext.lua
-pandoc -f djot input.dj --to /path/to/gemtext.lua -o output.gmi
-```
-
 ## Install
 
 The Makefile copies `gemtext.lua` into pandoc's conventional custom-writer
 location so you can reference it by name:
 
 ```sh
-make install              # → ~/.local/share/pandoc/custom-writers/gemtext.lua
+make install              # → ~/.local/share/pandoc/custom/gemtext.lua
 make install PREFIX=/usr/local
 ```
 
 There's no binary to install — this project is the single Lua file.
+
+## Usage
+
+Once installed, reference the writer by name:
+
+```sh
+pandoc -f gfm README.md --to gemtext.lua -o README.gmi
+cat notes.md | pandoc -f commonmark --to gemtext.lua
+pandoc -f djot input.dj --to gemtext.lua -o output.gmi
+```
+
+Without installing, pass the path to the file directly:
+
+```sh
+pandoc -f gfm README.md --to /path/to/gemtext.lua -o README.gmi
+```
 
 ## Feature mapping
 
