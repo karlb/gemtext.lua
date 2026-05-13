@@ -18,6 +18,7 @@ location so you can reference it by name:
 ```sh
 make install              # → ~/.local/share/pandoc/custom/gemtext.lua
 make install PREFIX=/usr/local
+make uninstall
 ```
 
 There's no binary to install — this project is the single Lua file.
@@ -45,26 +46,29 @@ lose decoration. The mapping is:
 
 | source construct             | gemtext                                                  |
 |------------------------------|----------------------------------------------------------|
-| Headings 1–3                 | `# ` / `## ` / `### ` (levels ≥ 4 capped at `###`)       |
-| Paragraph                    | One text line (no hard wrapping)                         |
-| Emphasis, strong             | dropped (decorative)                                     |
-| Highlight, insert            | dropped (decorative)                                     |
-| Strikeout, delete            | wrapped `~text~` (meaning would flip if dropped)         |
-| Superscript                  | leading `^` — `x^2`, `x^(n+1)` when multi-token          |
-| Subscript                    | leading `_` — `H_2O`, `f_(i,j)` when multi-token         |
-| Quoted text                  | curly quotes `“…”` / `‘…’`                          |
-| Inline code                  | plain text                                               |
-| Inline math                  | literal TeX source                                       |
-| Link                         | `[N]` in prose + `=> url N: text` after the paragraph    |
-| Image                        | same, with ` [IMG]` appended                             |
-| Footnote                     | `[^N]` marker + `## Footnotes` section at doc end        |
-| Block quote                  | `> ` prefix; any `=>` link lines moved out below         |
-| Fenced code block            | ```` ``` ```` fence with language tag as alt text        |
-| Bullet / ordered / task list | `* item` (gemtext has only one list type — flat bullets) |
-| Thematic break               | `---`                                                    |
-| Table                        | aligned plain text inside a ```` ```table ```` fence     |
-| Div / span                   | walked transparently; attributes dropped                 |
-| Format-specific raw content  | kept if format is `gemtext`/`gmi`, else dropped          |
+| Headings 1–3                       | `# ` / `## ` / `### ` (levels ≥ 4 capped at `###`)       |
+| Paragraph                          | One text line (no hard wrapping)                         |
+| Emphasis, strong, underline, small caps | dropped (decorative)                                |
+| Highlight, insert                  | dropped (decorative)                                     |
+| Strikeout, delete                  | wrapped `~text~` (meaning would flip if dropped)         |
+| Superscript                        | leading `^` — `x^2`, `x^(n+1)` when multi-token          |
+| Subscript                          | leading `_` — `H_2O`, `f_(i,j)` when multi-token         |
+| Quoted text                        | curly quotes `“…”` / `‘…’`                          |
+| Inline code                        | plain text                                               |
+| Inline math                        | literal TeX source                                       |
+| Citation                           | content kept as plain text; citation keys dropped        |
+| Link                               | `[N]` in prose + `=> url N: text` after the paragraph    |
+| Image                              | same, with ` [IMG]` appended; `image` used if alt empty  |
+| Footnote                           | `[^N]` marker + `## Footnotes` section at doc end        |
+| Block quote                        | `> ` prefix; any `=>` link lines moved out below         |
+| Fenced code block                  | ```` ``` ```` fence with language tag as alt text        |
+| Bullet / ordered list              | `* item` (gemtext has only one list type — flat bullets) |
+| Definition list                    | `* term: definition` per definition                      |
+| Line block                         | one line per row; any links follow each line             |
+| Thematic break                     | `---`                                                    |
+| Table                              | aligned plain text inside a ```` ```table ```` fence     |
+| Div / figure / span                | walked transparently; attributes dropped                 |
+| Format-specific raw content        | kept if format is `gemtext`/`gmi`, else dropped          |
 
 **Guiding principle:** drop markers when the plain-text reading still
 carries the author's meaning; preserve them when dropping would flip or
